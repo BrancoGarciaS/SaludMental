@@ -1,0 +1,186 @@
+# #:import TwoLineIconListItem kivymd.uix.list.TwoLineIconListItem
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+
+# Botón para regresar (AnchorLayout para ajustar todo verticalmente)
+<BackButton@AnchorLayout>:
+    MDBoxLayout:
+        md_bg_color: '#FFFF00'
+        orientation: 'vertical'
+        size_hint: None, None
+        height: '50dp'
+        width: '50dp'
+        halign: 'center'
+        padding: ['5dp', '5dp','5dp','5dp']
+        MDButton:
+            pos_hint: {'center_x': .5, 'center_y': .1}
+            on_release:
+                app.root.current = 'principal'
+                app.root.transition = SlideTransition(direction='right')
+            MDButtonIcon:
+                icon: "arrow-left-top"
+            MDButtonText:
+                text: "Regresar"
+
+
+
+<SM>:
+    # Menú principal
+    MDScreen:
+        name: 'principal'
+        md_bg_color: '#FFFFFF'
+        MDBoxLayout:
+            orientation: 'vertical'
+            # Cabecera
+            MDTopAppBar:
+                # Cajón de la cabecera
+                type: "small"
+                size_hint_x: 1
+                pos_hint: {"center_x": .5, "center_y": .5}
+                # Botón de izquierda
+                MDTopAppBarLeadingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "menu"
+                # Texto Central
+                MDTopAppBarTitle:
+                    text: "Enfoque Utópico"
+                    pos_hint: {"center_x": .5}
+                # Botón de derecha
+                MDTopAppBarTrailingButtonContainer:
+                    MDActionTopAppBarButton:
+                        icon: "account-circle-outline"
+            # Acciones
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: '#FF0000'
+                # Imagen
+                Image:
+                    source: 'images/meditacion2.jpg'
+                    size_hint_y: 1
+                    height: self.texture_size[1]
+                MDListItem:
+                    # unfocus_color: '#FF0000'
+                    on_release:
+                        app.root.transition = SlideTransition(direction='left')
+                        root.current = 'screen1' # Pantalla de meditación
+                    MDListItemLeadingIcon:
+                        icon: "meditation"
+                    MDListItemHeadlineText:
+                        text: "Meditación"
+                    MDListItemSupportingText:
+                        text: "Sumergete en una placentera meditación guíada"
+                    
+                MDListItem:
+                    on_release:
+                        app.root.transition = SlideTransition(direction='left')
+                        root.current = 'screen1' # Pantalla de emoción
+                    MDListItemLeadingIcon:
+                        icon: "emoticon-happy"
+                    MDListItemHeadlineText:
+                        text: "Identificar cómo me siento hoy"
+                    MDListItemSupportingText:
+                        text: "Identifica cómo te sientes en este momento"
+
+                MDListItem:
+                    MDListItemLeadingIcon:
+                        icon: "heart-circle-outline"
+                    MDListItemHeadlineText:
+                        text: "Motivación"
+                    MDListItemSupportingText:
+                        text: "Motivate con los siguientes mensajes"
+                
+                MDListItem:
+                    MDListItemLeadingIcon:
+                        icon: "format-list-checks"
+                    MDListItemHeadlineText:
+                        text: "Tareas y objetivos diarios"
+                    MDListItemSupportingText:
+                        text: "Establece y marca tareas diarias"
+
+    # Pantalla meditación
+    MDScreen:
+        name: 'screen1'
+        orientation: 'vertical'
+        pos_hint: {'center_x': 0.5}
+        MDBoxLayout:
+            orientation: 'vertical'
+            padding: 20
+            MDLabel:
+                text: "Reproductor de sonido"
+                halign: 'center'
+
+            Widget:  #  widget vacío para rellenar abajo
+                size_hint_y: 0.9
+
+            MDBoxLayout:
+
+                orientation: 'horizontal'
+                size_hint_y: None
+                height: '48dp'  # Tamaño de los botones
+                spacing: '10dp'
+                padding: '20dp'
+
+                Widget:  #  widget vacío para rellenar el espacio izquierdo
+                    size_hint_x: 0.5
+
+                MDIconButton:
+                    pos_hint: {'center_x': 0.5}
+                    size_hint_x: None
+                    width: 150  # Ancho del botón
+                    on_release:
+                        app.load_sound()  # Llama al método de reproducción de sonido
+                    icon: "play"
+
+                MDIconButton:
+                    pos_hint: {'center_x': 0.5}
+                    size_hint_x: None
+                    width: 150  # Ancho del botón
+                    on_release:
+                        app.play_pause_sound()  # Llama al método para pausar el sonido
+                    icon: "pause"
+
+                MDIconButton:
+                    pos_hint: {'center_x': 0.5}
+                    size_hint_x: None
+                    width: 150  # Ancho del botón
+                    on_release:
+                        app.stop_sound()  # Llama al método para detener el sonido
+                    icon: "stop"
+
+                Widget:  #  widget vacío para rellenar el espacio derecho
+                    size_hint_x: 0.5
+
+
+            # Para botón de regreso
+            MDBoxLayout:
+                orientation: 'vertical'
+                MDButton:
+                    pos_hint: {'center_x': 0.5}
+                    on_release:
+                        root.current = 'principal'
+                        root.transition.direction = 'right'
+                        app.stop_sound() # Se detiene el sonido
+                    MDButtonText: 
+                        text: "Regresar"
+
+            Widget:  # Este widget añade espacio para que los botones no queden pegados abajo
+                size_hint_y: 0.3
+            
+    
+    MDScreen:
+        name: 'screen2'
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDLabel:
+                text: 'emocion xd'
+                halign: 'center'
+            MDBoxLayout:
+                md_bg_color: '#FF0000'
+                height: '200dp'
+                weight: '200dp'
+            BackButton:
+
+
+
+
+                
